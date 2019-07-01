@@ -21,7 +21,7 @@ def ohe(df, column):
 
 def logireg(X_train, X_test, y_train, y_test):
     '''Perform Logistic Regression and print results'''
-    lr = LogisticRegression(solver='lbfgs', fit_intercept = False, n_jobs=-1,  C = 1e12)
+    lr = LogisticRegression(solver='lbfgs', fit_intercept = False, n_jobs=-1,  C = 1e12, random_state=113)
     lr.fit(X_train, y_train)
     print_report(lr, X_test, y_test)
     return lr
@@ -29,21 +29,21 @@ def logireg(X_train, X_test, y_train, y_test):
     
 def xgb(X_train, X_test, y_train, y_test):
     '''Perform Gradient Boost and print results'''
-    xgb = XGBClassifier(learning_rate=0.1, max_depth=3, min_child_weight=2, n_estimators=125)
+    xgb = XGBClassifier(learning_rate=0.1, max_depth=3, min_child_weight=2, n_estimators=125, random_state=113)
     xgb.fit(X_train, y_train)
     print_report(xgb, X_test, y_test)
     return xgb
     
 def gb(X_train, X_test, y_train, y_test):
     '''Perform Gradient Boosting and print results'''
-    gb = GradientBoostingClassifier(learning_rate=.03, max_depth=4, n_estimators=150)
+    gb = GradientBoostingClassifier(learning_rate=.03, max_depth=4, n_estimators=150, random_state=113)
     gb.fit(X_train, y_train)
     print_report(gb, X_test, y_test)
     return gb
     
 def rf(X_train, X_test, y_train, y_test):
     '''Perform Random Forest and print results'''
-    rfc = RandomForestClassifier(n_estimators=100)
+    rfc = RandomForestClassifier(n_estimators=100, random_state=113)
     rfc.fit(X_train, y_train)
     print(rfc)
     print_report(rfc, X_test, y_test)
@@ -56,5 +56,7 @@ def print_report(model, X_test, y_test):
     confusion_matrix(y_true, y_pred)
     CV_score = cross_val_score(model, X_test, y_test, cv=5)
     print('\nEach Cross Validated Accuracy: \n', CV_score)
-    print("\nOverall Classifier Accuracy: %0.2f (+/- %0.2f)\n" % (CV_score.mean(), CV_score.std() * 2))    
+    print("\nOverall Classifier Accuracy: %0.2f (+/- %0.2f)\n" % (CV_score.mean(), CV_score.std() * 2))
+    
+
     
