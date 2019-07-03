@@ -56,7 +56,7 @@ def rf(X_train, X_test, y_train, y_test):
 def get_print_report(model, X_test, y_test):
     print("Report:")
     y_true, y_pred = y_test, model.predict(X_test)
-    CV_score = cross_val_score(model, X_test, y_test, cv=5)
+    CV_score = cross_val_score(model, X_test, y_test, cv=5, scoring='roc_auc')
     report = classification_report(y_true, y_pred) + ' CV score: ' +  str(CV_score.mean())
     print(report)
     confusion_matrix(y_true, y_pred)
