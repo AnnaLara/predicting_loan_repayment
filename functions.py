@@ -74,6 +74,22 @@ def predict_probability_and_class(model, X_test, y_test, theshold_for_class_0):
     y_true, y_pred = res['status'], res['pred_status']
     print(classification_report(y_true, y_pred))
     return res
+
+def check_calibration(res):
+    '''Return list of sets with average class, range of predicted_probabilities and count'''
+    res_c = res.copy()
+    averages = [res_c.loc[res_c[0] < 0.2]['status'].mean(), 
+           res_c.loc[(res_c[0] > 0.2) & (res_c[0] < 0.4)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.4) & (res_c[0] < 0.6)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.6) & (res_c[0] < 0.8)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.8) & (res_c[0] < 1)]['status'].mean()]
+    lens = [len(res_c.loc[res_c[0] < 0.2]['status']), 
+           len(res_c.loc[(res_c[0] > 0.2) & (res_c[0] < 0.4)]['status']),
+           len(res_c.loc[(res_c[0] > 0.4) & (res_c[0] < 0.6)]['status']),
+           len(res_c.loc[(res_c[0] > 0.6) & (res_c[0] < 0.8)]['status']),
+           len(res_c.loc[(res_c[0] > 0.8) & (res_c[0] < 1)]['status'])]
+    bins = ['0 - 0.2', '0.2 - 0.4', '0.4 - 0.6', '0.6 -0.8', '0.8 - 1']
+    return list(zip(averages, bins, lens))
     
 
   
