@@ -64,13 +64,13 @@ def get_print_report(model, X_test, y_test):
     print("\nOverall Classifier Accuracy: %0.2f (+/- %0.2f)\n" % (CV_score.mean(), CV_score.std() * 2))
     return report
     
-def predict_probability_and_class(model, X_test, y_test, theshold_for_class_1):
+def predict_probability_and_class(model, X_test, y_test, theshold_for_class_0):
     '''Returns dataframe with predicted probabilities of classes, predicted class;
         print confusion matrix'''
     y_proba = model.predict_proba(X_test)
     res = pd.DataFrame(y_proba, y_test)
     res = res.reset_index()
-    res['pred_status'] = res[1].apply(lambda x: 1 if x > theshold_for_class_1 else 0 )
+    res['pred_status'] = res[0].apply(lambda x: 0 if x > theshold_for_class_0 else 1 )
     y_true, y_pred = res['status'], res['pred_status']
     print(classification_report(y_true, y_pred))
     return res
