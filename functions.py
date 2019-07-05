@@ -78,17 +78,28 @@ def predict_probability_and_class(model, X_test, y_test, theshold_for_class_0):
 def check_calibration(res):
     '''Return list of sets with average class, range of predicted_probabilities and count'''
     res_c = res.copy()
-    averages = [res_c.loc[res_c[0] < 0.2]['status'].mean(), 
-           res_c.loc[(res_c[0] > 0.2) & (res_c[0] < 0.4)]['status'].mean(),
-           res_c.loc[(res_c[0] > 0.4) & (res_c[0] < 0.6)]['status'].mean(),
-           res_c.loc[(res_c[0] > 0.6) & (res_c[0] < 0.8)]['status'].mean(),
-           res_c.loc[(res_c[0] > 0.8) & (res_c[0] < 1)]['status'].mean()]
-    lens = [len(res_c.loc[res_c[0] < 0.2]['status']), 
-           len(res_c.loc[(res_c[0] > 0.2) & (res_c[0] < 0.4)]['status']),
-           len(res_c.loc[(res_c[0] > 0.4) & (res_c[0] < 0.6)]['status']),
-           len(res_c.loc[(res_c[0] > 0.6) & (res_c[0] < 0.8)]['status']),
-           len(res_c.loc[(res_c[0] > 0.8) & (res_c[0] < 1)]['status'])]
-    bins = ['0 - 0.2', '0.2 - 0.4', '0.4 - 0.6', '0.6 -0.8', '0.8 - 1']
+    averages = [res_c.loc[res_c[0] < 0.1]['status'].mean(), 
+           res_c.loc[(res_c[0] > 0.1) & (res_c[0] < 0.2)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.2) & (res_c[0] < 0.3)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.3) & (res_c[0] < 0.4)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.4) & (res_c[0] < 0.5)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.5) & (res_c[0] < 0.6)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.6) & (res_c[0] < 0.7)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.7) & (res_c[0] < 0.8)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.8) & (res_c[0] < 0.9)]['status'].mean(),
+           res_c.loc[(res_c[0] > 0.9) & (res_c[0] < 1)]['status'].mean()]
+    lens = [len(res_c.loc[res_c[0] < 0.1]['status']), 
+           len(res_c.loc[(res_c[0] > 0.1) & (res_c[0] < 0.2)]['status']),
+           len(res_c.loc[(res_c[0] > 0.2) & (res_c[0] < 0.3)]['status']),
+           len(res_c.loc[(res_c[0] > 0.3) & (res_c[0] < 0.4)]['status']),
+           len(res_c.loc[(res_c[0] > 0.4) & (res_c[0] < 0.5)]['status']),
+           len(res_c.loc[(res_c[0] > 0.5) & (res_c[0] < 0.6)]['status']),
+           len(res_c.loc[(res_c[0] > 0.6) & (res_c[0] < 0.7)]['status']),
+           len(res_c.loc[(res_c[0] > 0.7) & (res_c[0] < 0.8)]['status']),
+           len(res_c.loc[(res_c[0] > 0.8) & (res_c[0] < 0.9)]['status']),
+           len(res_c.loc[(res_c[0] > 0.9) & (res_c[0] < 1)]['status'])]
+    bins = ['0 - 0.1', '0.1 - 0.2', '0.2 - 0.3', '0.3 -0.4', '0.4 - 0.5', '0.5 - 0,6',
+           '0.6 - 0.7', '0.7 - 0.8', '0.8 - 0.9', '0.9 - 1']
     return list(zip(averages, bins, lens))
     
 
