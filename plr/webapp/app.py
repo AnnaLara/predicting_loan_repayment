@@ -1,9 +1,10 @@
 import random
-import pandas as pd
+#import pandas as pd
 from flask import Flask, request, render_template, jsonify
-from .. predict import predict
+from .. import predict
 
 app = Flask(__name__, static_url_path="")
+
 
 @app.route('/')
 def index():
@@ -15,5 +16,9 @@ def index():
 def predict_from_input():
     """Return a random prediction."""
     data = request.json
-    prediction = predict([data['user_input']])
+    prediction = predict_p([data['user_input']])
     return jsonify({'probability': prediction[0][1]})
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
