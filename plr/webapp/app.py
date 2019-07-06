@@ -1,7 +1,7 @@
-import random
-#import pandas as pd
-from flask import Flask, request, render_template, jsonify
 from .. import predict
+from flask import Flask, request, render_template, jsonify
+import random
+
 
 app = Flask(__name__, static_url_path="")
 
