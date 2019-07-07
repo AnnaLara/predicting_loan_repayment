@@ -93,6 +93,24 @@ def get_print_report(model, X_test, y_test):
     print('\nEach Cross Validated AUC: \n', CV_score)
     print("\nOverall Classifier AUC: %0.2f (+/- %0.2f)\n" % (CV_score.mean(), CV_score.std() * 2))
     return report
+
+def parse_reports(reports):
+    '''Return a dataframe with parsed reports'''
+    reports_dicts_list = []
+    for report in reports:
+        r = report.split(' ')
+        numbers = []
+        for i in r:
+            try:
+                numbers.append(float(i))
+            except:
+                pass
+        report_dict = {numbers[0]: {'precision': numbers[1], 'recall': numbers[2], 'f1': numbers[3]},
+        numbers[5]: {'precision': numbers[6], 'recall': numbers[7], 'f1': numbers[8]},
+        'accuracy': numbers[10],
+        'CV_AUC_score': numbers[19]}
+        reports_dicts_list.append(report_dict)
+    return pd.DataFrame(reports_dicts_list)
     
 def predict_probability_and_class(model, X_test, y_test, theshold_for_class_0):
     '''Returns dataframe with predicted probabilities of classes, predicted class;
