@@ -4,9 +4,15 @@
 
 ### Business understanding
 
-I am working with one of Seattle's startups that grants small loans (up to 500$) to people with no credit score. I am going to attempt to predict loan repayment using the data they have on customers' bank transactions.
 
-Predicting if the person will pay the loan is a cornerstone task for the sratup I worke with. This startup not only gives poeple a chance granting a loan when noone else would, but they also report this information to the credit authorities contributing to creating a credit score.
+
+I have been working with a startup in Seattle that grants small loans (up to 500$) to people with no credit score.
+
+Loans for people with no credit score is an unexplored business opportunity, as there are around 50000 people in Uniteed States without credit score. On one hand, this startup helps this people granting them a loan when noone else would not, and on the other hand, the startup reports information 
+
+I am going to attempt to predict loan repayment using the data they have on customers' bank transactions.
+
+Predicting if the person will pay the loan is a cornerstone task for the sratup I work with. This startup not only gives poeple a chance granting a loan when noone else would, but they also report this information to the credit authorities contributing to creating a credit score.
 
 ### Data Understanding
 

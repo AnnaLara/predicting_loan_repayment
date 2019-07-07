@@ -23,6 +23,23 @@ def ohe(df, column):
     df = pd.concat([df, ohe], axis=1, join='inner')
     return df
 
+def keep_states_drop(df, states_to_keep):
+    '''Drop rows where state is not in the states_to_keep list'''
+    df['state'] = df['state'].apply(lambda x: 'drop' if (x not in states_to_keep) else x)
+    df = df.drop(df[(df['state'] == 'drop')].index)
+    
+    #reset index
+    df = df.reset_index(drop=True)
+        
+    return df
+
+def preprocess(df):
+    '''Preprocess according to EDA's conclusions'''
+    df = df.drop(['loan_amount', 'loan_borrowed_inc', 'loan_outstanding_inc', 'Unnamed: 0', 'loan_id',  'length_of_transaction_history'], axis=1)
+    df = keep_states_drop(df, ['\"WA\"', '\"CA\"', '\"UT\"', '\"ID\"'])
+    return df
+    
+
 def logireg(X_train, X_test, y_train, y_test):
     '''Perform Logistic Regression and print results'''
     lr = LogisticRegression(solver='lbfgs', fit_intercept = False, n_jobs=-1,  C = 1e12, random_state=113)
