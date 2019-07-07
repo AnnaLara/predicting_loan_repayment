@@ -4,11 +4,11 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, KFold
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from xgboost import XGBClassifier
 
-np.random.seed(2019)
+np.random.seed(113)
 
 
 def ohe(df, column):
@@ -164,6 +164,65 @@ def get_df_coef(lr_model, X_test):
     features = features.sort_values(by='abs_coef')
     
     return features
+
+def cv_calibration(X_train, X_test, y_train, y_test):
+    '''Returns a list of averaged true classes for predicted probability ranges'''
+    #put back together test and train data
+    X_n = pd.concat((X_train, X_test), join='inner')
+    y_n = pd.concat((y_train, y_test), join='inner')
+    
+    kf = KFold(n_splits=5)
+    calibrations = []
+    for train_index, test_index in kf.split(X_n):
+
+        X_train, X_test = X_n.iloc[train_index, :], X_n.iloc[test_index, :]
+        y_train, y_test = y_n.iloc[train_index], y_n.iloc[test_index]
+        lr5 = LogisticRegression(solver='lbfgs', fit_intercept = False, n_jobs=-1,  C = 1e12, random_state=113)
+        lr5.fit(X_train, y_train)
+        res = predict_probability_and_class(lr5, X_test, y_test, 0.25)
+        calibrations.append(check_calibration(res))
+    
+    ranges_0 = []
+    ranges_1 = []
+    ranges_2 = []
+    ranges_3 = []
+    ranges_4 = []
+    ranges_5 = []
+    ranges_6 = []
+    ranges_7 = []
+    ranges_8 = []
+    ranges_9 = []
+
+    for item in calibrations:
+        for n, i in enumerate(item):
+            if n == 0:
+                ranges_0.append(i[0])
+            elif n == 1:
+                ranges_1.append(i[0])
+            elif n == 2:
+                ranges_2.append(i[0])
+            elif n == 3:
+                ranges_3.append(i[0])
+            elif n == 4:
+                ranges_4.append(i[0])
+            elif n == 5:
+                ranges_5.append(i[0])
+            elif n == 6:
+                ranges_6.append(i[0])
+            elif n == 7:
+                ranges_7.append(i[0])
+            elif n == 8:
+                ranges_8.append(i[0])
+            elif n == 9:
+                ranges_9.append(i[0])
+
+    ranges = [ranges_0, ranges_1, ranges_2, ranges_3, ranges_4, ranges_5, ranges_6, ranges_7, ranges_8, ranges_9]
+    avg_ranges = []
+
+    for r in ranges:
+        avg_ranges.append(np.array(r).mean())
+
+    return avg_ranges
     
 
   
