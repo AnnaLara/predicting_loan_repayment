@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
@@ -38,6 +38,19 @@ def preprocess(df):
     df = df.drop(['loan_amount', 'loan_borrowed_inc', 'loan_outstanding_inc', 'Unnamed: 0', 'loan_id',  'length_of_transaction_history'], axis=1)
     df = keep_states_drop(df, ['\"WA\"', '\"CA\"', '\"UT\"', '\"ID\"'])
     return df
+
+def scale_columns(df, ss=None):
+    '''Return dataframe with all but state columns scaled'''
+    binary_columns = df[['state_\"ID\"', 'state_\"UT\"', 'state_\"WA\"']]
+    df_copy = df.drop(['state_\"ID\"', 'state_\"UT\"', 'state_\"WA\"'], axis=1)
+    column_names = list(df_copy.columns)
+    if ss == None:
+        ss = StandardScaler()
+        ss.fit(df_copy)
+    df_scaled = ss.transform(df_copy)
+    df_scaled = pd.DataFrame(df_scaled, columns=column_names)
+    df_scaled = pd.concat([df_scaled, binary_columns], axis=1, join='inner')
+    return df_scaled, ss
     
 
 def logireg(X_train, X_test, y_train, y_test):
@@ -74,11 +87,11 @@ def get_print_report(model, X_test, y_test):
     print("Report:")
     y_true, y_pred = y_test, model.predict(X_test)
     CV_score = cross_val_score(model, X_test, y_test, cv=5, scoring='roc_auc')
-    report = classification_report(y_true, y_pred) + ' CV score: ' +  str(CV_score.mean())
+    report = classification_report(y_true, y_pred) + ' CV AUC score: ' +  str(CV_score.mean())
     print(report)
     confusion_matrix(y_true, y_pred)
-    print('\nEach Cross Validated Accuracy: \n', CV_score)
-    print("\nOverall Classifier Accuracy: %0.2f (+/- %0.2f)\n" % (CV_score.mean(), CV_score.std() * 2))
+    print('\nEach Cross Validated AUC: \n', CV_score)
+    print("\nOverall Classifier AUC: %0.2f (+/- %0.2f)\n" % (CV_score.mean(), CV_score.std() * 2))
     return report
     
 def predict_probability_and_class(model, X_test, y_test, theshold_for_class_0):
