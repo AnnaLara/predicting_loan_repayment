@@ -149,6 +149,21 @@ def check_calibration(res):
     bins = ['0 - 0.1', '0.1 - 0.2', '0.2 - 0.3', '0.3 -0.4', '0.4 - 0.5', '0.5 - 0,6',
            '0.6 - 0.7', '0.7 - 0.8', '0.8 - 0.9', '0.9 - 1']
     return list(zip(averages, bins, lens))
+
+def get_df_coef(lr_model, X_test):
+    '''Return dataframe with names and coeficients
+    sorted by absolute value'''
+    coef = lr_model.coef_[0]   
+    feature_names = X_test.columns
+    features = pd.DataFrame()
+    features['name'] = feature_names
+    features['coef'] = coef
+
+    #sort by absolute value of coefficients
+    features['abs_coef'] = features['coef'].apply(lambda x: abs(x))
+    features = features.sort_values(by='abs_coef')
+    
+    return features
     
 
   
