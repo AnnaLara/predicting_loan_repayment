@@ -7,6 +7,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score, KFold
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from xgboost import XGBClassifier
+from sklearn import metrics
 
 np.random.seed(113)
 
@@ -82,6 +83,31 @@ def rf(X_train, X_test, y_train, y_test):
     print(rfc)
     report = get_print_report(rfc, X_test, y_test)
     return rfc, report
+
+def guess_maj_class(X_train, X_test, y_train, y_test):
+    '''Return report about metrics of guessing class 1 always'''
+    y_guess = y_test.replace(value=1)
+    y_true, y_pred = y_test, y_guess
+    
+    #put back together test and train data
+    X_n = pd.concat((X_train, X_test), join='inner')
+    y_n = pd.concat((y_train, y_test), join='inner')
+    
+    kf = KFold(n_splits=5)
+    cv_scores = []
+    for train_index, test_index in kf.split(X_n):
+        X_train, X_test = X_n.iloc[train_index, :], X_n.iloc[test_index, :]
+        y_train, y_test = y_n.iloc[train_index], y_n.iloc[test_index]
+        
+        from sklearn import metrics
+        y = np.array([1, 1, 2, 2])
+        pred = y_test.replace(value=1)
+        fpr, tpr, thresholds = metrics.roc_curve(y, pred, pos_label=2)
+        metrics.auc(fpr, tpr)
+        
+        res = predict_probability_and_class(lr5, X_test, y_test, 0.25)
+        calibrations.append(check_calibration(res))
+    return 
 
 def get_print_report(model, X_test, y_test):
     print("Report:")
@@ -223,6 +249,28 @@ def cv_calibration(X_train, X_test, y_train, y_test):
         avg_ranges.append(np.array(r).mean())
 
     return avg_ranges
+
+
+def guess_maj_class_cv_auc(X_train, X_test, y_train, y_test):
+    '''Return cross-validated AUC score when always guessing class 1'''
+    #put back together test and train data
+    X_n = pd.concat((X_train, X_test), join='inner')
+    y_n = pd.concat((y_train, y_test), join='inner')
+    
+    kf = KFold(n_splits=5)
+    auc_scores = []
+    for train_index, test_index in kf.split(X_n):
+        X_train, X_test = X_n.iloc[train_index, :], X_n.iloc[test_index, :]
+        y_train, y_test = y_n.iloc[train_index], y_n.iloc[test_index]
+        
+        #always predict class 1
+        y_pred = y_test.replace(0,1)
+        
+        fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred, pos_label=1)
+        score = metrics.auc(fpr, tpr)
+        auc_scores.append(score)
+        
+    return np.array(auc_scores).mean()
     
 
   
