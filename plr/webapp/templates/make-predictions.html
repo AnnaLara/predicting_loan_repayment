@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+<br />
+<h3>Predict loan repayment</h3>
+<br />
+<form id="features_form" name="features_form">
+  {% for feature_name in feature_names %}
+  <div class="form-group">
+    <label for="{{ feature_name }}">{{ feature_name }}</label>
+    <input
+      class="form-control"
+      id="{{ feature_name }}"
+      name="{{ feature_name }}"
+      aria-describedby="{{ feature_name }}"
+    />
+  </div>
+  {% endfor %}
+
+  <button id="submit" type="submit" class="btn btn-primary">Predict</button>
+  <p></p>
+  <p>Probability of default: <span id="probability"></span></p>
+</form>
+<script>
+  $(function() {
+    $("#features_form").on("submit", function(e) {
+      e.preventDefault();
+      console.log($("form#features_form").serializeArray());
+
+      $.ajax({
+        url: "/predict",
+        data: JSON.stringify($("form#features_form").serializeArray()),
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json",
+        success: function(data) {
+          $("#probability").html(data.probability);
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
