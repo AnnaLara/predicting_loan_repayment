@@ -197,54 +197,40 @@ def cv_calibration(X_train, X_test, y_train, y_test):
     X_n = pd.concat((X_train, X_test), join='inner')
     y_n = pd.concat((y_train, y_test), join='inner')
     
+    #initialize k-fold class
     kf = KFold(n_splits=5)
+    
+    #create a list where average classes will be added to
     calibrations = []
+    
+    #loop through indeces that are results of k-fold splits
     for train_index, test_index in kf.split(X_n):
-
+        
+        #create train and test sets using these indeces
         X_train, X_test = X_n.iloc[train_index, :], X_n.iloc[test_index, :]
         y_train, y_test = y_n.iloc[train_index], y_n.iloc[test_index]
+        
+        #on each iteration train new logistic regression
         lr5 = LogisticRegression(solver='lbfgs', fit_intercept = False, n_jobs=-1,  C = 1e12, random_state=113)
         lr5.fit(X_train, y_train)
+        #get daaframe with probabilities and true classes
         res = predict_probability_and_class(lr5, X_test, y_test, 0.25)
         calibrations.append(check_calibration(res))
     
-    ranges_0 = []
-    ranges_1 = []
-    ranges_2 = []
-    ranges_3 = []
-    ranges_4 = []
-    ranges_5 = []
-    ranges_6 = []
-    ranges_7 = []
-    ranges_8 = []
-    ranges_9 = []
-
+    #create a list with empty lists that will correspond to 10 ranges of predicted probability
+    ranges = []
+    
+    for k in range(0, 10):
+        ranges.append([])
+    
+    #list where cross-validated averaged true classes will be
+    avg_ranges = []
+    
+    #loop through calibrations and extract average true classes for each range
     for item in calibrations:
         for n, i in enumerate(item):
-            if n == 0:
-                ranges_0.append(i[0])
-            elif n == 1:
-                ranges_1.append(i[0])
-            elif n == 2:
-                ranges_2.append(i[0])
-            elif n == 3:
-                ranges_3.append(i[0])
-            elif n == 4:
-                ranges_4.append(i[0])
-            elif n == 5:
-                ranges_5.append(i[0])
-            elif n == 6:
-                ranges_6.append(i[0])
-            elif n == 7:
-                ranges_7.append(i[0])
-            elif n == 8:
-                ranges_8.append(i[0])
-            elif n == 9:
-                ranges_9.append(i[0])
-
-    ranges = [ranges_0, ranges_1, ranges_2, ranges_3, ranges_4, ranges_5, ranges_6, ranges_7, ranges_8, ranges_9]
-    avg_ranges = []
-
+                ranges[n].append(i[0])
+    
     for r in ranges:
         avg_ranges.append(np.array(r).mean())
 
