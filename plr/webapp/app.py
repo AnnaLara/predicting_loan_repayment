@@ -53,22 +53,32 @@ feature_names = ['monthly_income', 'gig_economy_weekly_income',
 
 @app.route('/')
 def index():
-    """Return the main page."""
-    return render_template('index.html', feature_names=feature_names)
+    """Return home page."""
+    return render_template('index.html')
+
+
+@app.route('/make-predictions')
+def make_predictions():
+    """Return predictions page."""
+    return render_template('make-predictions.html', feature_names=feature_names)
 
 
 @app.route('/predict', methods=['POST'])
 def predict_from_input():
     """Return prediction for a given user input."""
     data = request.get_json(force=True)
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(data)
-    pp.pprint(get_feature_values_array(feature_names, data))
+
     prediction = predict_p(get_feature_values_array(feature_names, data),
                            model, scaler)[0][0]
     print(prediction, type(prediction))
 
-    return jsonify({'probability': prediction})
+    return jsonify({'probability': round(prediction, 2)})
+
+
+@app.route('/contact')
+def contact():
+    """Return the contact page."""
+    return render_template('contact.html')
 
 
 if __name__ == '__main__':
