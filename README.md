@@ -47,21 +47,22 @@ After the first iteration, since my label classes were unbalanced (75% class 1, 
 In both cases I applied all the above mentioned models to compare the results.
 
 **Comparison of the applied models**
-| **index** | **0.0** | **1.0** | **accuracy** | **CV_AUC_score** | **model** |
-| --- | --- | --- | --- | --- | --- |
-| 0 | {'precision': 0.35, 'recall': 0.03, 'f1': 0.06}| {'precision': 0.78, 'recall': 0.98, 'f1': 0.87} | 0.77 | 0.625946 | Logistic regression |
-| 1 | {'precision': 0.1, 'recall': 0.01, 'f1': 0.01}| {'precision': 0.78, 'recall': 0.99, 'f1': 0.87} | 0.77 | 0.646706 | Logistic Regression limited features |
-| 2 | {'precision': 0.67, 'recall': 0.06, 'f1': 0.12} | {'precision': 0.79, 'recall': 0.99, 'f1': 0.88}| 0.78 | 0.643459 | Random forest |
-| 3 | {'precision': 0.44, 'recall': 0.04, 'f1': 0.08} | {'precision': 0.78, 'recall': 0.98, 'f1': 0.87}| 0.77 | 0.653591 | XGBoost |
-| 4 | {'precision': 0.36, 'recall': 0.03, 'f1': 0.05} | {'precision': 0.78, 'recall': 0.99, 'f1': 0.87}| 0.77 | 0.654784 | Gradient boosting |
-| 5 | {'precision': 0.32, 'recall': 0.42, 'f1': 0.36} | {'precision': 0.82, 'recall': 0.74, 'f1': 0.78}| 0.67 | 0.643459 | Random forest with data from rejected dataset |
-| 6 | {'precision': 0.3, 'recall': 0.44, 'f1': 0.36} | {'precision': 0.81, 'recall': 0.7, 'f1': 0.75} | 0.64 | 0.627792 | Logistic regression with data from rejected dataset |
-| 7 | {'precision': 0.32, 'recall': 0.39, 'f1': 0.35} | {'precision': 0.81, 'recall': 0.76, 'f1': 0.78} | 0.68 | 0.654784 | Gradient Boosting with data from rejected dataset |
-| 8 | {'precision': 0.33, 'recall': 0.4, 'f1': 0.36} | {'precision': 0.82, 'recall': 0.77, 'f1': 0.79} | 0.69| 0.653591 | XG Boost with data from rejected dataset |
-| 9 | {'precision': 0.38, 'recall': 0.13, 'f1': 0.19} | {'precision': 0.79, 'recall': 0.94, 'f1': 0.86} | 0.76 | 0.643459 | Random forest with resampled data|
-| 10 | {'precision': 0.32, 'recall': 0.49, 'f1': 0.39} | {'precision': 0.83, 'recall': 0.71, 'f1': 0.76} | 0.66 | 0.654784 | Gradient Boosting with resampled data |
-| 11 | {'precision': 0.33, 'recall': 0.49, 'f1': 0.4} | {'precision': 0.83, 'recall': 0.72, 'f1': 0.77} | 0.67 | 0.653591 | XG Boost with resampled data|
-| 12 | {'precision': 0.33, 'recall': 0.66, 'f1': 0.44} | {'precision': 0.86, 'recall': 0.61, 'f1': 0.71} | 0.62 | 0.627920 | Logistic regression with resampled data |
+
+| **index** | **0.0**                                         | **1.0**                                         | **accuracy** | **CV_AUC_score** | **model**                                           |
+| --------- | ----------------------------------------------- | ----------------------------------------------- | ------------ | ---------------- | --------------------------------------------------- |
+| 0         | {'precision': 0.35, 'recall': 0.03, 'f1': 0.06} | {'precision': 0.78, 'recall': 0.98, 'f1': 0.87} | 0.77         | 0.625946         | Logistic regression                                 |
+| 1         | {'precision': 0.1, 'recall': 0.01, 'f1': 0.01}  | {'precision': 0.78, 'recall': 0.99, 'f1': 0.87} | 0.77         | 0.646706         | Logistic Regression limited features                |
+| 2         | {'precision': 0.67, 'recall': 0.06, 'f1': 0.12} | {'precision': 0.79, 'recall': 0.99, 'f1': 0.88} | 0.78         | 0.643459         | Random forest                                       |
+| 3         | {'precision': 0.44, 'recall': 0.04, 'f1': 0.08} | {'precision': 0.78, 'recall': 0.98, 'f1': 0.87} | 0.77         | 0.653591         | XGBoost                                             |
+| 4         | {'precision': 0.36, 'recall': 0.03, 'f1': 0.05} | {'precision': 0.78, 'recall': 0.99, 'f1': 0.87} | 0.77         | 0.654784         | Gradient boosting                                   |
+| 5         | {'precision': 0.32, 'recall': 0.42, 'f1': 0.36} | {'precision': 0.82, 'recall': 0.74, 'f1': 0.78} | 0.67         | 0.643459         | Random forest with data from rejected dataset       |
+| 6         | {'precision': 0.3, 'recall': 0.44, 'f1': 0.36}  | {'precision': 0.81, 'recall': 0.7, 'f1': 0.75}  | 0.64         | 0.627792         | Logistic regression with data from rejected dataset |
+| 7         | {'precision': 0.32, 'recall': 0.39, 'f1': 0.35} | {'precision': 0.81, 'recall': 0.76, 'f1': 0.78} | 0.68         | 0.654784         | Gradient Boosting with data from rejected dataset   |
+| 8         | {'precision': 0.33, 'recall': 0.4, 'f1': 0.36}  | {'precision': 0.82, 'recall': 0.77, 'f1': 0.79} | 0.69         | 0.653591         | XG Boost with data from rejected dataset            |
+| 9         | {'precision': 0.38, 'recall': 0.13, 'f1': 0.19} | {'precision': 0.79, 'recall': 0.94, 'f1': 0.86} | 0.76         | 0.643459         | Random forest with resampled data                   |
+| 10        | {'precision': 0.32, 'recall': 0.49, 'f1': 0.39} | {'precision': 0.83, 'recall': 0.71, 'f1': 0.76} | 0.66         | 0.654784         | Gradient Boosting with resampled data               |
+| 11        | {'precision': 0.33, 'recall': 0.49, 'f1': 0.4}  | {'precision': 0.83, 'recall': 0.72, 'f1': 0.77} | 0.67         | 0.653591         | XG Boost with resampled data                        |
+| 12        | {'precision': 0.33, 'recall': 0.66, 'f1': 0.44} | {'precision': 0.86, 'recall': 0.61, 'f1': 0.71} | 0.62         | 0.627920         | Logistic regression with resampled data             |
 
 Baseline AUC was 0.5
 
