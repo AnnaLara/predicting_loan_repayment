@@ -44,7 +44,7 @@ After the first iteration, since my label classes were unbalanced (75% class 1, 
 
 - randomly picking data from rejected applications dataset which I assumed is class 0 for the purposes of the experiment.
 
-- upsampling class 0 applications using `sklearn.resample``
+- upsampling class 0 applications using `sklearn.resample`
 
 In both cases I applied all the above mentioned models to compare the results.
 
@@ -105,23 +105,25 @@ The model can be used via Flask app, or alternatively `predict.py`can be used to
 
 Second and third parameters are the model and the scaler that can be accessed with this code:
 
-```with open('../lr_model.sav', 'rb') as f:
-        model = pickle.load(f)
+```
+with open('../lr_model.sav', 'rb') as f:
+    model = pickle.load(f)
 
-    with open('../scaler.pkl', 'rb') as f:
-        scaler = pickle.load(f)
+with open('../scaler.pkl', 'rb') as f:
+    scaler = pickle.load(f)
 ```
 
 **Example:**
 
-```with open('../lr_model.sav', 'rb') as f:
-        model = pickle.load(f)
+```
+with open('../lr_model.sav', 'rb') as f:
+    model = pickle.load(f)
 
-    with open('../scaler.pkl', 'rb') as f:
-        scaler = pickle.load(f)
+with open('../scaler.pkl', 'rb') as f:
+    scaler = pickle.load(f)
 
-    prediction = predict_p((0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 20, 1000, 5, 0, 1, 0, 1, 500, 100, 300,
-         3, 100, 0, 300, 2000, 4, 1, 1, 500, 0, 0, 0), model, scaler)
+prediction = predict_p((0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 20, 1000, 5, 0, 1, 0, 1, 500, 100, 300,
+                        3, 100, 0, 300, 2000, 4, 1, 1, 500, 0, 0, 0), model, scaler)
 ```
 
 **Output:** `[[0.06276169 0.93723831]]`
