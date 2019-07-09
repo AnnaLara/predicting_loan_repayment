@@ -1,4 +1,71 @@
 {% extends 'base.html' %} {% block content %}
 <br />
-<h3>Home page</h3>
+<h3>Project in GitHub</h3>
+<p>
+  Please, follow
+  <a href="https://github.com/AnnaLara/predicting_loan_repayment">this link</a>
+  to see the source code of the project
+</p>
+<br />
+
+<h3>Business problem</h3>
+<p>
+  Loans for people with no credit score is an unexplored ground. There are
+  around
+  <a
+    href="https://files.consumerfinance.gov/f/201505_cfpb_data-point-credit-invisibles.pdf"
+    >50000 people in Uniteed States without credit score</a
+  >.
+</p>
+<p>
+  On one hand, it is both a business oportunity and a chance to help people when
+  they need it. On the other hand, a solution to decide whether the loan will be
+  paid back is needed.
+</p>
+<br />
+
+<h3>The model</h3>
+<p>
+  Logistic Regression model that predicts the probability of default and paying
+  back a small loan.
+</p>
+<p>
+  The data used to train the model contained only bank transaction information,
+  no credit score involved. The data was provided by one of US startups that
+  grants small loans to people with no credit score.
+</p>
+<br />
+
+<h3>Model evaluation</h3>
+<p>Cross-validated log loss: -0.56</p>
+<p>Cross-validated AUC score: 0.63</p>
+<br />
+
+<h3>ROC curve</h3>
+<br />
+<p>
+  ROC curve represents the tradeof between True Positive Rate and False Positive
+  Rate. That is, how much TPR can be increased with as little increase of the
+  FPR as possible. If the curve is a srtaight diagonal line, the model does not
+  have any predicting power (the case when AUC is 0.5).
+</p>
+<img
+  class="img-fluid"
+  src="https://raw.githubusercontent.com/AnnaLara/predicting_loan_repayment/master/graphs/roc_auc.png"
+/>
+<br />
+
+<h3>Predicted and actual probability of default</h3>
+<p>
+  For the most ranges the average true class is close to the predicted
+  probability. This means that, for example, if a person is predicted to have
+  0.35 probability of default, in reality 3-4 persons out of 10 witll default.
+  These predictions can be used to estimate company's income and apply different
+  loan conditions to individuals with higher probability of default.
+</p>
+<img
+  class="img-fluid"
+  src="https://raw.githubusercontent.com/AnnaLara/predicting_loan_repayment/master/graphs/calibration_check.png"
+/>
+
 {% endblock %}

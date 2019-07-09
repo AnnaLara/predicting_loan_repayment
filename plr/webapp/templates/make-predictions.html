@@ -17,13 +17,12 @@
 
   <button id="submit" type="submit" class="btn btn-primary">Predict</button>
   <p></p>
-  <p>Probability of default: <span id="probability"></span></p>
+  <h3>Probability of default: <span id="probability"></span></h3>
 </form>
 <script>
   $(function() {
     $("#features_form").on("submit", function(e) {
       e.preventDefault();
-      console.log($("form#features_form").serializeArray());
 
       $.ajax({
         url: "/predict",
