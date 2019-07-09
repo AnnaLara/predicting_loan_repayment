@@ -17,9 +17,12 @@ def ohe(df, column):
     #if rows were dropped, the reset is necessary
     df = df.reset_index(drop='True')
     category = df[column].values.reshape(-1, 1)
-    encoder = OneHotEncoder(drop='first', categories='auto').fit(category)
+    encoder = OneHotEncoder(categories='auto').fit(category)
+    names = encoder.get_feature_names([column])
     ohe = pd.DataFrame(encoder.transform(category).toarray(),
-                   columns=encoder.get_feature_names([column]))
+                   columns=names)
+    #drop ND column to avoid multicollinearity
+    ohe = ohe.drop(['state_"ND"'], axis=1)
     df = df.drop([column], axis=1)
     df = pd.concat([df, ohe], axis=1, join='inner')
     return df
@@ -37,13 +40,13 @@ def keep_states_drop(df, states_to_keep):
 def preprocess(df):
     '''Preprocess according to EDA's conclusions'''
     df = df.drop(['loan_amount', 'loan_borrowed_inc', 'loan_outstanding_inc', 'Unnamed: 0', 'loan_id',  'length_of_transaction_history'], axis=1)
-    df = keep_states_drop(df, ['\"WA\"', '\"CA\"', '\"UT\"', '\"ID\"'])
+    df = keep_states_drop(df, ['\"LA\"', '\"NH\"', '\"NJ\"', '\"ND\"'])
     return df
 
 def scale_columns(df, ss=None):
     '''Return dataframe with all but state columns scaled'''
-    binary_columns = df[['state_\"ID\"', 'state_\"UT\"', 'state_\"WA\"']]
-    df_copy = df.drop(['state_\"ID\"', 'state_\"UT\"', 'state_\"WA\"'], axis=1)
+    binary_columns = df[['state_\"LA\"', 'state_\"NH\"', 'state_\"NJ\"']]
+    df_copy = df.drop(['state_\"LA\"', 'state_\"NH\"', 'state_\"NJ\"'], axis=1)
     column_names = list(df_copy.columns)
     if ss == None:
         ss = StandardScaler()

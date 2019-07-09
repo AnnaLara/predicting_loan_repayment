@@ -48,7 +48,7 @@ feature_names = ['monthly_income', 'gig_economy_weekly_income',
                  'installment_loan', 'predatory_installment_loan', 'title_loan',
                  'pay_advances', 'total_loan_payments', 'no_of_other_active_loans',
                  'traditional_single_payment_mean', 'traditional_single_payment_trend',
-                 'loan_requested', 'state_"ID"', 'state_"UT"', 'state_"WA"']
+                 'loan_requested', 'state_"LA"', 'state_"NH"', 'state_"NJ"']
 
 
 @app.route('/')
