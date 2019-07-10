@@ -18,7 +18,9 @@ There were 36 bank transaction features:
 `loan_requested`, `state`, `loan_id`, `loan_amount`, `loan_borrowed_inc`, `loan_outstanding_inc`,
 `length_of_transaction_history`.
 
-The data is confidential and could not be included in this repository.
+The data is confidential and could not be included in this repository. The states names were changed for confidentiality purposes.
+
+I created the `dummy_data.csv` dataset that contains random values that resemble the data I used.
 
 ### Data Preparation
 
