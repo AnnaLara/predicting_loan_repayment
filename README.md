@@ -4,7 +4,7 @@
 
 I have been working with a startup in Seattle that grants small loans (up to 500\$) to people with no credit score.
 
-Loans for people with no credit score is an unexplored business opportunity, as there are around 50000 people in Uniteed States without credit score. On one hand, this startup helps people granting them a loan when noone else would, and on the other hand, the positive outcome is reported to the credit authorities, so that customers can start building credit history.
+Loans for people with no credit score is an unexplored business opportunity, as 1 in 10 American consumers has no credit history. On one hand, this startup helps people granting them a loan when noone else would, and on the other hand, the positive outcome is reported to the credit authorities, so that customers can start building credit history.
 
 I have built a Logistic Regression model that predicts the probability of default and paying back.
 
