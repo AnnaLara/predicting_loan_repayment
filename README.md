@@ -78,7 +78,7 @@ There are several logistic regression models. The ones with blanced classes seem
 
 **ROC curve**
 
-ROC curve represents the tradeof between True Positive Rate and False Positive Rate. That is, how much TPR can be increased with as little increase of the FPR as possible. If the curve is a srtaight diagonal line, the model does not have any predicting power (the case when AUC is 0.5).
+ROC curve represents the tradeof between True Positive Rate and False Positive Rate. That is, how much TPR can be increased with as little increase of the FPR as possible. If the curve is a straight diagonal line, the model does not have any predicting power (the case when AUC is 0.5).
 !['ROC curve'](https://github.com/AnnaLara/predicting_loan_repayment/raw/master/graphs/roc_auc.png)
 
 **Cross-validated log loss: -0.56**
