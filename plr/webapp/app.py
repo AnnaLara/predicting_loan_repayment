@@ -72,7 +72,7 @@ def predict_from_input():
                            model, scaler)[0][0]
     print(prediction, type(prediction))
 
-    return jsonify({'probability': round(prediction, 2)})
+    return jsonify({'probability': prediction})
 
 
 @app.route('/contact')
