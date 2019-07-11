@@ -37,18 +37,18 @@ def get_feature_values_array(feature_names, response_data):
 
 app = Flask(__name__, static_url_path="")
 
-feature_names = ['monthly_income', 'gig_economy_weekly_income',
-                 'atm_check_deposits_weekly_income', 'direct_deposit_weekly_income',
-                 'government_aid_weekly_income', 'frequency_heuristic_weekly_income',
-                 'large_deposits_weekly_income', 'income_length', 'payrolls_per_month',
-                 'income_sources', 'days_since_most_recent_payroll',
-                 'days_until_next_payroll', 'bank_balance', 'overdraft_transactions',
-                 'nsf_transactions', 'return_transactions', 'reverse_transactions',
-                 'mortgage', 'auto_loan', 'student_loan', 'traditional_single_payment',
-                 'installment_loan', 'predatory_installment_loan', 'title_loan',
-                 'pay_advances', 'total_loan_payments', 'no_of_other_active_loans',
-                 'traditional_single_payment_mean', 'traditional_single_payment_trend',
-                 'loan_requested', 'state_"LA"', 'state_"NH"', 'state_"NJ"']
+feature_names = ['Monthly income', 'Gig economy weekly income',
+                 'Atm check deposits weekly income', 'Direct deposit weekly income',
+                 'Government aid weekly income', 'Frequency heuristic weekly income',
+                 'Large deposits weekly income', 'Income length', 'Payrolls per month',
+                 'Income sources', 'Days since most recent payroll',
+                 'Days until next payroll', 'Bank balance', 'Overdraft transactions',
+                 'NSF transactions', 'Return transactions', 'Reverse transactions',
+                 'Mortgage', 'Auto loan', 'Student loan', 'Traditional single payment',
+                 'Installment loan', 'Predatory installment loan', 'Title loan',
+                 'Pay advances', 'Total loan payments', 'Nunmber of other active loans',
+                 'Traditional single payment mean', 'Traditional single payment trend',
+                 'Loan requested', 'State LA', 'State NH', 'State NJ']
 
 
 @app.route('/')
