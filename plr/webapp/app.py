@@ -46,7 +46,7 @@ feature_names = ['Monthly income', 'Gig economy weekly income',
                  'NSF transactions', 'Return transactions', 'Reverse transactions',
                  'Mortgage', 'Auto loan', 'Student loan', 'Traditional single payment',
                  'Installment loan', 'Predatory installment loan', 'Title loan',
-                 'Pay advances', 'Total loan payments', 'Nunmber of other active loans',
+                 'Pay advances', 'Total loan payments', 'Number of other active loans',
                  'Traditional single payment mean', 'Traditional single payment trend',
                  'Loan requested', 'State LA', 'State NH', 'State NJ']
 
