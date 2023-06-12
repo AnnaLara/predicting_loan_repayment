@@ -100,8 +100,7 @@ These predictions can be used to estimate company's income, and apply different 
 
 ### Deployment
 
-The model is deployed as a Flask App that allows to calculate the probability of default based on input values that correspond to model's parameters.
-[**Link to the app: http://plr.annalara.net/**](http://plr.annalara.net/)
+The model was originally deployed as a Flask App that allowed to calculate the probability of default based on input values that correspond to model's parameters.
 
 ### Make predictions with the model
 
